@@ -1,0 +1,657 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"type": "string",
+			"metadata": "Workspace name",
+			"defaultValue": "adeses2rg1-synapsewrkspc"
+		},
+		"adeses2rg1-synapsewrkspc-WorkspaceDefaultSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'adeses2rg1-synapsewrkspc-WorkspaceDefaultSqlServer'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:adeses2rg1-synapsewrkspc.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"adeses2rg1strg1_link_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'adeses2rg1strg1_link'"
+		},
+		"sqlDBLnkSrvc_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sqlDBLnkSrvc'"
+		},
+		"adeses2rg1-synapsewrkspc-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adeses2rg1strg2.dfs.core.windows.net"
+		},
+		"adeses2rg1strg1_link_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adeses2rg1strg1.dfs.core.windows.net/"
+		}
+	},
+	"variables": {
+		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('workspaceName'), '/Copy-Fact-Dimension')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach_y6q",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@pipeline().parameters.cw_items",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy_y6q",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "dbo.@{item().source.table}"
+										},
+										{
+											"name": "Destination",
+											"value": "dbo.@{item().destination.table}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "SqlPoolSink",
+											"writeBehavior": "Insert",
+											"tableOption": "autoCreate"
+										},
+										"enableStaging": false,
+										"translator": {
+											"value": "@item().copyActivity.translator",
+											"type": "Expression"
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "SourceDataset_y6q",
+											"type": "DatasetReference",
+											"parameters": {
+												"cw_table": "@item().source.table"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DestinationDataset_y6q",
+											"type": "DatasetReference",
+											"parameters": {
+												"cw_table": "@item().destination.table"
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"cw_items": {
+						"type": "Array",
+						"defaultValue": [
+							{
+								"source": {
+									"table": "DimCustomer"
+								},
+								"destination": {
+									"table": "DimCustomer"
+								},
+								"copyActivity": {
+									"translator": {
+										"type": "TabularTranslator",
+										"mappings": [
+											{
+												"source": {
+													"name": "CustomerID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "CustomerID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "CompanyName",
+													"type": "String",
+													"physicalType": "nvarchar"
+												},
+												"sink": {
+													"name": "CompanyName",
+													"type": "String"
+												}
+											},
+											{
+												"source": {
+													"name": "SalesPerson",
+													"type": "String",
+													"physicalType": "nvarchar"
+												},
+												"sink": {
+													"name": "SalesPerson",
+													"type": "String"
+												}
+											}
+										],
+										"typeConversion": true,
+										"typeConversionSettings": {
+											"allowDataTruncation": true,
+											"treatBooleanAsNumber": false
+										}
+									}
+								}
+							},
+							{
+								"source": {
+									"table": "DimProduct"
+								},
+								"destination": {
+									"table": "DimProduct"
+								},
+								"copyActivity": {
+									"translator": {
+										"type": "TabularTranslator",
+										"mappings": [
+											{
+												"source": {
+													"name": "ProductID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "ProductID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "ProductName",
+													"type": "String",
+													"physicalType": "nvarchar"
+												},
+												"sink": {
+													"name": "ProductName",
+													"type": "String"
+												}
+											},
+											{
+												"source": {
+													"name": "ProductModelID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "ProductModelID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "ProductModelName",
+													"type": "String",
+													"physicalType": "nvarchar"
+												},
+												"sink": {
+													"name": "ProductModelName",
+													"type": "String"
+												}
+											},
+											{
+												"source": {
+													"name": "ProductCategoryID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "ProductCategoryID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "CategoryName",
+													"type": "String",
+													"physicalType": "nvarchar"
+												},
+												"sink": {
+													"name": "CategoryName",
+													"type": "String"
+												}
+											}
+										],
+										"typeConversion": true,
+										"typeConversionSettings": {
+											"allowDataTruncation": true,
+											"treatBooleanAsNumber": false
+										}
+									}
+								}
+							},
+							{
+								"source": {
+									"table": "FactSales"
+								},
+								"destination": {
+									"table": "FactSales"
+								},
+								"copyActivity": {
+									"translator": {
+										"type": "TabularTranslator",
+										"mappings": [
+											{
+												"source": {
+													"name": "ProductID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "ProductID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "SalesOrderID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "SalesOrderID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "OrderQty",
+													"type": "Int16",
+													"physicalType": "smallint"
+												},
+												"sink": {
+													"name": "OrderQty",
+													"type": "Int16"
+												}
+											},
+											{
+												"source": {
+													"name": "UnitPrice",
+													"type": "Decimal",
+													"physicalType": "money",
+													"scale": 4,
+													"precision": 19
+												},
+												"sink": {
+													"name": "UnitPrice",
+													"type": "Decimal"
+												}
+											},
+											{
+												"source": {
+													"name": "OrderDate",
+													"type": "DateTime",
+													"physicalType": "datetime"
+												},
+												"sink": {
+													"name": "OrderDate",
+													"type": "DateTime"
+												}
+											},
+											{
+												"source": {
+													"name": "CustomerID",
+													"type": "Int32",
+													"physicalType": "int"
+												},
+												"sink": {
+													"name": "CustomerID",
+													"type": "Int32"
+												}
+											},
+											{
+												"source": {
+													"name": "TaxAmt",
+													"type": "Decimal",
+													"physicalType": "money",
+													"scale": 4,
+													"precision": 19
+												},
+												"sink": {
+													"name": "TaxAmt",
+													"type": "Decimal"
+												}
+											}
+										],
+										"typeConversion": true,
+										"typeConversionSettings": {
+											"allowDataTruncation": true,
+											"treatBooleanAsNumber": false
+										}
+									}
+								}
+							}
+						]
+					}
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-09-20T14:40:19Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SourceDataset_y6q')]",
+				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_y6q')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_y6q')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"parameters": {
+					"cw_table": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "SqlPoolTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().cw_table",
+						"type": "Expression"
+					}
+				},
+				"sqlPool": {
+					"referenceName": "Ded_sqlPool1",
+					"type": "SqlPoolReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/Ded_sqlPool1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SourceDataset_y6q')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sqlDBLnkSrvc",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"cw_table": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": {
+						"value": "@dataset().cw_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/sqlDBLnkSrvc')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/adeses2rg1-synapsewrkspc-WorkspaceDefaultSqlServer')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"parameters": {
+					"DBName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('adeses2rg1-synapsewrkspc-WorkspaceDefaultSqlServer_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/adeses2rg1-synapsewrkspc-WorkspaceDefaultStorage')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('adeses2rg1-synapsewrkspc-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/adeses2rg1strg1_link')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('adeses2rg1strg1_link_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('adeses2rg1strg1_link_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/sqlDBLnkSrvc')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('sqlDBLnkSrvc_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
+			"type": "Microsoft.Synapse/workspaces/credentials",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "ManagedIdentity",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Ded-sql Parquet External Tables')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Qwerty@123456'\n\nCREATE DATABASE SCOPED CREDENTIAL SasToken\nwith IDENTITY = 'SHARED ACCESS SIGNATURE',\nSECRET = 'sv=2022-11-02&ss=bfqt&srt=sco&sp=rwcpy&se=2023-09-30T23:00:12Z&st=2023-09-18T15:00:12Z&spr=https&sig=dww5k24ETkYefvKswwi9xIh0vTvNgDnP6IdN%2FM3V6Aw%3D'\n--- shared access signature for storage accounts expires, you may need new one\n\nCREATE EXTERNAL DATA SOURCE LOG_parqDAT\nWITH (\n    LOCATION = 'https://adeses2rg1strg1.blob.core.windows.net/parquet',\n    CREDENTIAL = SasToken\n)\n\nCREATE EXTERNAL FILE FORMAT parquetFormat\nWITH\n(  \n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n)\n\n\n-- Create an external table for a CSV file in ADLS\nCREATE EXTERNAL TABLE logParqTable\n(\n    [Correlation id] [varchar](200) NULL,\n    [Operation name] [varchar](200) NULL,\n    [Status] [varchar](100) NULL,\n    [Event category] [varchar](100) NULL,\n    [Level] [varchar](100) NULL,\n    [Time] [datetime] NULL,\n    [Subscription] [varchar](200) NULL,\n    [Event initiated by] [varchar](1000) NULL,\n    [Resource type] [varchar](1000) NULL,\n    [Resource group] [varchar](1000) NULL, \n    [Resource] [varchar](2000) NULL\n)\nWITH\n(\n    LOCATION = '/log.parquet',             -- Specify the path to the CSV file in ADLS\n    DATA_SOURCE = LOG_parqDAT,      -- Specify your external data source name\n    FILE_FORMAT = parquetFormat           -- Specify your external file format name\n)\n\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "Ded_sqlPool1",
+						"poolName": "Ded_sqlPool1"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Ded-sql csv External Tables')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "CREATE DATABASE SCOPED CREDENTIAL AZcredential\nwith IDENTITY = 'adeses2rg1strg1',\nSECRET = 'TdCzG5WN6IUhp6nS4Ju++fURflvS3s8CS5vLFH6ATViXp7wHmhIOEKOJSiDjlqeff2WN+NNVHEZ8+AStpGSSXg=='\n--- for identity we used storage name and for secret we used ACCESS KEYS of the storage account \n\nCREATE EXTERNAL DATA SOURCE log_csvdATA\nWITH\n(\n    LOCATION =  'abfss://csv@adeses2rg1strg1.dfs.core.windows.net',\n            --- abfss://mycontainer@mystorageaccount.dfs.core.windows.net/mydata\n    CREDENTIAL = AZcredential,\n    TYPE = HADOOP\n)\n\nCREATE EXTERNAL FILE FORMAT csv_format\nWITH\n(\n    FORMAT_TYPE = DELIMITEDTEXT,\n    FORMAT_OPTIONS (\n        FIELD_TERMINATOR = ',',\n        FIRST_ROW = 2,  -- Skip the first row if it contains headers\n        USE_TYPE_DEFAULT = TRUE\n    )\n)\n\n\n-- Create an external table for a CSV file in ADLS\nCREATE EXTERNAL TABLE logTable\n(\n    [Correlation id] [varchar](200) NULL,\n    [Operation name] [varchar](200) NULL,\n    [Status] [varchar](100) NULL,\n    [Event category] [varchar](100) NULL,\n    [Level] [varchar](100) NULL,\n    [Time] [varchar](100) NULL,--------- [datetime] NULL,\n    ---- there is change hear, we used varchar rather the date beacuse of hadoop extension for reading the csv file\n    [Subscription] [varchar](200) NULL,\n    [Event initiated by] [varchar](1000) NULL,\n    [Resource type] [varchar](1000) NULL,\n    [Resource group] [varchar](1000) NULL, \n    [Resource] [varchar](2000) NULL\n)\nWITH\n(\n    LOCATION = '/Log.csv',             -- Specify the path to the CSV file in ADLS\n    DATA_SOURCE = log_csvdATA,      -- Specify your external data source name\n    FILE_FORMAT = csv_format           -- Specify your external file format name\n)\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "Ded_sqlPool1",
+						"poolName": "Ded_sqlPool1"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Serverless csv External Table')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "--CREATE DATABASE appdb\n\nCREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Qwerty@123456'\n\nCREATE DATABASE SCOPED CREDENTIAL SasToken\nwith IDENTITY = 'SHARED ACCESS SIGNATURE',\nSECRET = 'sv=2022-11-02&ss=bf&srt=sco&sp=rwy&se=2023-09-17T20:07:57Z&st=2023-09-17T12:07:57Z&spr=https&sig=0XmloKMlWKRZN8oNEenLNyL0lDCF%2BybRqSJuiUsQUSU%3D'\n--- shared access signature for storage accounts expires, you may need new one\n\nCREATE EXTERNAL DATA SOURCE LOG_DAT\nWITH (\n    LOCATION = 'https://adeses2rg1strg1.blob.core.windows.net/csv',\n    CREDENTIAL = SasToken\n)\n\nCREATE EXTERNAL FILE FORMAT csvFormat\nWITH\n(  \n    FORMAT_TYPE = DELIMITEDTEXT,\n    FORMAT_OPTIONS (\n        FIELD_TERMINATOR = ',',\n        FIRST_ROW = 2,  -- Skip the first row if it contains headers\n        USE_TYPE_DEFAULT = TRUE\n    )\n)\n\n\n-- Create an external table for a CSV file in ADLS\nCREATE EXTERNAL TABLE logTable\n(\n    [Correlation id] [varchar](200) NULL,\n    [Operation name] [varchar](200) NULL,\n    [Status] [varchar](100) NULL,\n    [Event category] [varchar](100) NULL,\n    [Level] [varchar](100) NULL,\n    [Time] [datetime] NULL,\n    [Subscription] [varchar](200) NULL,\n    [Event initiated by] [varchar](1000) NULL,\n    [Resource type] [varchar](1000) NULL,\n    [Resource group] [varchar](1000) NULL, \n    [Resource] [varchar](2000) NULL\n)\nWITH\n(\n    LOCATION = '/Log.csv',             -- Specify the path to the CSV file in ADLS\n    DATA_SOURCE = LOG_DAT,      -- Specify your external data source name\n    FILE_FORMAT = csvFormat           -- Specify your external file format name\n)\n\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "appdb",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Serverless multi parquet files External Tables')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "--CREATE DATABASE appdb\n\n--CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Qwerty@123456'\n\nCREATE DATABASE SCOPED CREDENTIAL multiSasToken\nwith IDENTITY = 'SHARED ACCESS SIGNATURE',\nSECRET = 'sv=2022-11-02&ss=bfqt&srt=sco&sp=rwcpy&se=2023-09-30T23:00:12Z&st=2023-09-18T15:00:12Z&spr=https&sig=dww5k24ETkYefvKswwi9xIh0vTvNgDnP6IdN%2FM3V6Aw%3D'\n--- shared access signature for storage accounts expires, you may need new one\n\nCREATE EXTERNAL DATA SOURCE LOG_multiparqDAT\nWITH (\n    LOCATION = 'https://adeses2rg1strg1.blob.core.windows.net/multi-parquet',\n    CREDENTIAL = multiSasToken\n)\n\nCREATE EXTERNAL FILE FORMAT parquetFormat\nWITH\n(  \n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n)\n\n\n-- Create an external table for a CSV file in ADLS\nCREATE EXTERNAL TABLE logmultiParqTable\n(\n    [Correlation id] [varchar](200) NULL,\n    [Operation name] [varchar](200) NULL,\n    [Status] [varchar](100) NULL,\n    [Event category] [varchar](100) NULL,\n    [Level] [varchar](100) NULL,\n    [Time] [datetime] NULL,\n    [Subscription] [varchar](200) NULL,\n    [Event initiated by] [varchar](1000) NULL,\n    [Resource type] [varchar](1000) NULL,\n    [Resource group] [varchar](1000) NULL, \n    [Resource] [varchar](2000) NULL\n)\nWITH\n(\n    LOCATION = '/',             -- Specify the path to the CSV file in ADLS\n    DATA_SOURCE = LOG_multiparqDAT,      -- Specify your external data source name\n    FILE_FORMAT = parquetFormat           -- Specify your external file format name\n)\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "appdb",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Serverless parquet External Tables')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "--CREATE DATABASE appdb\n\n--CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'Qwerty@123456'\n\nCREATE DATABASE SCOPED CREDENTIAL SasToken\nwith IDENTITY = 'SHARED ACCESS SIGNATURE',\nSECRET = 'sv=2022-11-02&ss=bf&srt=sco&sp=rwy&se=2023-09-17T20:07:57Z&st=2023-09-17T12:07:57Z&spr=https&sig=0XmloKMlWKRZN8oNEenLNyL0lDCF%2BybRqSJuiUsQUSU%3D'\n--- shared access signature for storage accounts expires, you may need new one\n\nCREATE EXTERNAL DATA SOURCE LOG_parqDAT\nWITH (\n    LOCATION = 'https://adeses2rg1strg1.blob.core.windows.net/parquet',\n    CREDENTIAL = SasToken\n)\n\nCREATE EXTERNAL FILE FORMAT parquetFormat\nWITH\n(  \n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n)\n\n\n-- Create an external table for a CSV file in ADLS\nCREATE EXTERNAL TABLE logParqTable\n(\n    [Correlation id] [varchar](200) NULL,\n    [Operation name] [varchar](200) NULL,\n    [Status] [varchar](100) NULL,\n    [Event category] [varchar](100) NULL,\n    [Level] [varchar](100) NULL,\n    [Time] [datetime] NULL,\n    [Subscription] [varchar](200) NULL,\n    [Event initiated by] [varchar](1000) NULL,\n    [Resource type] [varchar](1000) NULL,\n    [Resource group] [varchar](1000) NULL, \n    [Resource] [varchar](2000) NULL\n)\nWITH\n(\n    LOCATION = '/log.parquet',             -- Specify the path to the CSV file in ADLS\n    DATA_SOURCE = LOG_parqDAT,      -- Specify your external data source name\n    FILE_FORMAT = parquetFormat           -- Specify your external file format name\n)\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "appdb",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Ded_sqlPool1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "eastus"
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "adeses2rg1-synapsewrkspc"
+		},
+		"adeses2rg1-synapsewrkspc-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:adeses2rg1-synapsewrkspc.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"adeses2rg1strg1_link_accountKey": {
+			"value": ""
+		},
+		"sqlDBLnkSrvc_connectionString": {
+			"value": ""
+		},
+		"adeses2rg1-synapsewrkspc-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://adeses2rg1strg2.dfs.core.windows.net"
+		},
+		"adeses2rg1strg1_link_properties_typeProperties_url": {
+			"value": "https://adeses2rg1strg1.dfs.core.windows.net/"
+		}
+	}
+}
