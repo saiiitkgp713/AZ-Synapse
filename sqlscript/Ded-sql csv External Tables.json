@@ -1,0 +1,17 @@
+{
+	"name": "Ded-sql csv External Tables",
+	"properties": {
+		"content": {
+			"query": "CREATE DATABASE SCOPED CREDENTIAL AZcredential\nwith IDENTITY = 'adeses2rg1strg1',\nSECRET = 'TdCzG5WN6IUhp6nS4Ju++fURflvS3s8CS5vLFH6ATViXp7wHmhIOEKOJSiDjlqeff2WN+NNVHEZ8+AStpGSSXg=='\n--- for identity we used storage name and for secret we used ACCESS KEYS of the storage account \n\nCREATE EXTERNAL DATA SOURCE log_csvdATA\nWITH\n(\n    LOCATION =  'abfss://csv@adeses2rg1strg1.dfs.core.windows.net',\n            --- abfss://mycontainer@mystorageaccount.dfs.core.windows.net/mydata\n    CREDENTIAL = AZcredential,\n    TYPE = HADOOP\n)\n\nCREATE EXTERNAL FILE FORMAT csv_format\nWITH\n(\n    FORMAT_TYPE = DELIMITEDTEXT,\n    FORMAT_OPTIONS (\n        FIELD_TERMINATOR = ',',\n        FIRST_ROW = 2,  -- Skip the first row if it contains headers\n        USE_TYPE_DEFAULT = TRUE\n    )\n)\n\n\n-- Create an external table for a CSV file in ADLS\nCREATE EXTERNAL TABLE logTable\n(\n    [Correlation id] [varchar](200) NULL,\n    [Operation name] [varchar](200) NULL,\n    [Status] [varchar](100) NULL,\n    [Event category] [varchar](100) NULL,\n    [Level] [varchar](100) NULL,\n    [Time] [varchar](100) NULL,--------- [datetime] NULL,\n    ---- there is change hear, we used varchar rather the date beacuse of hadoop extension for reading the csv file\n    [Subscription] [varchar](200) NULL,\n    [Event initiated by] [varchar](1000) NULL,\n    [Resource type] [varchar](1000) NULL,\n    [Resource group] [varchar](1000) NULL, \n    [Resource] [varchar](2000) NULL\n)\nWITH\n(\n    LOCATION = '/Log.csv',             -- Specify the path to the CSV file in ADLS\n    DATA_SOURCE = log_csvdATA,      -- Specify your external data source name\n    FILE_FORMAT = csv_format           -- Specify your external file format name\n)\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Ded_sqlPool1",
+				"poolName": "Ded_sqlPool1"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
