@@ -34,6 +34,13 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('workspaceName'), '/PkFkmaps')]",
+			"type": "Microsoft.Synapse/workspaces/dataMappers",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/adeses2rg1-synapsewrkspc-WorkspaceDefaultSqlServer')]",
 			"type": "Microsoft.Synapse/workspaces/linkedServices",
 			"apiVersion": "2019-06-01-preview",
@@ -596,7 +603,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
-											"IsNullable": false,
+											"IsNullable": true,
 											"Length": 15,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
@@ -610,7 +617,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
-											"IsNullable": false,
+											"IsNullable": true,
 											"Length": 15,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
@@ -622,12 +629,12 @@
 										"Name": "BirthDate",
 										"Description": "",
 										"OriginDataTypeName": {
-											"TypeName": "date",
+											"TypeName": "timestamp",
 											"IsComplexType": false,
-											"IsNullable": false,
+											"IsNullable": true,
 											"Properties": {
-												"DateFormat": "YYYY-MM-DD",
-												"HIVE_TYPE_STRING": "date"
+												"HIVE_TYPE_STRING": "timestamp",
+												"TimestampFormat": "YYYY-MM-DD HH:MM:SS.fffffffff"
 											}
 										},
 										"DeltaFormatInvalidMessages": []
@@ -638,7 +645,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
-											"IsNullable": false,
+											"IsNullable": true,
 											"Length": 25,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
@@ -652,7 +659,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "string",
 											"IsComplexType": false,
-											"IsNullable": false,
+											"IsNullable": true,
 											"Length": 1024,
 											"Properties": {
 												"HIVE_TYPE_STRING": "string"
@@ -729,7 +736,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "integer",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "integer"
 											}
@@ -812,7 +819,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "OrderDetailID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -881,12 +888,12 @@
 										"Name": "OrderDate",
 										"Description": "",
 										"OriginDataTypeName": {
-											"TypeName": "date",
+											"TypeName": "timestamp",
 											"IsComplexType": false,
 											"IsNullable": false,
 											"Properties": {
-												"DateFormat": "YYYY-MM-DD",
-												"HIVE_TYPE_STRING": "date"
+												"HIVE_TYPE_STRING": "timestamp",
+												"TimestampFormat": "YYYY-MM-DD HH:MM:SS.fffffffff"
 											}
 										},
 										"DeltaFormatInvalidMessages": []
