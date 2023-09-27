@@ -1,0 +1,23 @@
+{
+	"name": "relationship-gidfgziejd",
+	"properties": {
+		"Name": "relationship-gidfgziejd",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "northwindLDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Suppliers",
+		"ToTableName": "Products",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "SupplierID",
+				"ToColumnName": "SupplierID"
+			}
+		],
+		"RelationshipType": 0
+	},
+	"type": "RELATIONSHIP"
+}

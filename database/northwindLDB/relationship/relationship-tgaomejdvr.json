@@ -1,0 +1,23 @@
+{
+	"name": "relationship-tgaomejdvr",
+	"properties": {
+		"Name": "relationship-tgaomejdvr",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "northwindLDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Shippers",
+		"ToTableName": "Orders",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "ShipperID",
+				"ToColumnName": "ShipperID"
+			}
+		],
+		"RelationshipType": 0
+	},
+	"type": "RELATIONSHIP"
+}

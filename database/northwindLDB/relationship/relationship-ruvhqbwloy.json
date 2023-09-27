@@ -1,0 +1,23 @@
+{
+	"name": "relationship-ruvhqbwloy",
+	"properties": {
+		"Name": "relationship-ruvhqbwloy",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "northwindLDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Employees",
+		"ToTableName": "Orders",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "EmployeeID",
+				"ToColumnName": "EmployeeID"
+			}
+		],
+		"RelationshipType": 0
+	},
+	"type": "RELATIONSHIP"
+}

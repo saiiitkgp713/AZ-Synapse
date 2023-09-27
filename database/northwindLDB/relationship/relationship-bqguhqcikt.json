@@ -1,0 +1,23 @@
+{
+	"name": "relationship-bqguhqcikt",
+	"properties": {
+		"Name": "relationship-bqguhqcikt",
+		"EntityType": "RELATIONSHIP",
+		"Namespace": {
+			"DatabaseName": "northwindLDB"
+		},
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"FromTableName": "Orders",
+		"ToTableName": "OrderDetails",
+		"ColumnRelationshipInformations": [
+			{
+				"FromColumnName": "OrderID",
+				"ToColumnName": "OrderID"
+			}
+		],
+		"RelationshipType": 0
+	},
+	"type": "RELATIONSHIP"
+}
