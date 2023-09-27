@@ -17,8 +17,8 @@
 					"Name": "OrderDetailID",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": true,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -30,8 +30,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -43,8 +43,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -56,8 +56,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -101,9 +101,8 @@
 		"Properties": {
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-			"PrimaryKeys": "",
-			"spark.sql.sources.provider": "csv",
-			"sql:IsAppendOnly": false
+			"PrimaryKeys": "OrderDetailID",
+			"spark.sql.sources.provider": "csv"
 		},
 		"Retention": 0,
 		"Temporary": false,

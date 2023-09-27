@@ -17,8 +17,8 @@
 					"Name": "OrderID",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -30,8 +30,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -43,8 +43,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -55,12 +55,12 @@
 					"Name": "OrderDate",
 					"Description": "",
 					"OriginDataTypeName": {
-						"TypeName": "date",
-						"IsNullable": false,
+						"TypeName": "timestamp",
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
-							"DateFormat": "YYYY-MM-DD",
-							"HIVE_TYPE_STRING": "date"
+							"HIVE_TYPE_STRING": "timestamp",
+							"TimestampFormat": "YYYY-MM-DD HH:MM:SS.fffffffff"
 						}
 					},
 					"DeltaFormatInvalidMessages": []
@@ -70,8 +70,8 @@
 					"Description": "",
 					"OriginDataTypeName": {
 						"TypeName": "integer",
-						"IsNullable": false,
 						"IsComplexType": false,
+						"IsNullable": false,
 						"Properties": {
 							"HIVE_TYPE_STRING": "integer"
 						}
@@ -116,8 +116,7 @@
 			"Description": "",
 			"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
 			"PrimaryKeys": "OrderID",
-			"spark.sql.sources.provider": "csv",
-			"sql:IsAppendOnly": false
+			"spark.sql.sources.provider": "csv"
 		},
 		"Retention": 0,
 		"Temporary": false,
