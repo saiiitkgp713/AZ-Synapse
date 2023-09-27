@@ -324,6 +324,1031 @@
 						"Source": {
 							"Type": "SPARK"
 						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Categories",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "CategoryID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "CategoryName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Description",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/categories.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/categories.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Customers",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "CustomerID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "CustomerName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ContactName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Address",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "City",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "PostalCode",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Country",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/customers.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/customers.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Employees",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "EmployeeID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "LastName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "FirstName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "BirthDate",
+										"OriginDataTypeName": {
+											"TypeName": "date",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"DateFormat": "YYYY-MM-DD",
+												"HIVE_TYPE_STRING": "date"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Photo",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Notes",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/employees.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/employees.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "OrderDetails",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "OrderDetailID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "OrderID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ProductID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Quantity",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/orderdetails.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/orderdetails.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Orders",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "OrderID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "CustomerID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "EmployeeID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "OrderDate",
+										"OriginDataTypeName": {
+											"TypeName": "date",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"DateFormat": "YYYY-MM-DD",
+												"HIVE_TYPE_STRING": "date"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ShipperID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/orders.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/orders.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Products",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "ProductID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ProductName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "SupplierID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "CategoryID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Unit",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Price",
+										"OriginDataTypeName": {
+											"TypeName": "double",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "double"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/products.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/products.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Shippers",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "ShipperID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ShipperName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Phone",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/shippers.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/shippers.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "Suppliers",
+							"EntityType": "TABLE",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Description": "",
+							"TableType": "EXTERNAL",
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"StorageDescriptor": {
+								"Columns": [
+									{
+										"Name": "SupplierID",
+										"OriginDataTypeName": {
+											"TypeName": "long",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Properties": {
+												"HIVE_TYPE_STRING": "long"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "SupplierName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "ContactName",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Address",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "City",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "PostalCode",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Country",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									},
+									{
+										"Name": "Phone",
+										"OriginDataTypeName": {
+											"TypeName": "string",
+											"IsComplexType": false,
+											"IsNullable": true,
+											"Length": 8000,
+											"Properties": {
+												"HIVE_TYPE_STRING": "string"
+											}
+										},
+										"DeltaFormatInvalidMessages": []
+									}
+								],
+								"Format": {
+									"InputFormat": "org.apache.hadoop.mapred.SequenceFileInputFormat",
+									"OutputFormat": "org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat",
+									"FormatType": "csv",
+									"SerializeLib": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe",
+									"Properties": {
+										"path": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/suppliers.csv",
+										"delimiter": ",",
+										"multiLine": "false",
+										"firstRowAsHeader": "true",
+										"serialization.format": "1",
+										"FormatTypeSetToDatabaseDefault": false,
+										"header": "true"
+									}
+								},
+								"Source": {
+									"Provider": "ADLS",
+									"Location": "abfss://northwind@adeses2rg1strg1.dfs.core.windows.net/suppliers.csv",
+									"Properties": {
+										"LinkedServiceName": "adeses2rg1strg1_link",
+										"LocationSetToDatabaseDefault": false
+									}
+								},
+								"Properties": {
+									"textinputformat.record.delimiter": ",",
+									"compression": "{\"type\":\"None\",\"level\":\"optimal\"}",
+									"derivedModelAttributeInfo": "{\"attributeReferences\":{}}"
+								},
+								"Compressed": false,
+								"IsStoredAsSubdirectories": false
+							},
+							"Properties": {
+								"Description": "",
+								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
+								"PrimaryKeys": "",
+								"spark.sql.sources.provider": "csv"
+							},
+							"Retention": 0,
+							"Temporary": false,
+							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
 					}
 				]
 			},
