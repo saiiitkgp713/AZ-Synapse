@@ -215,6 +215,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 2')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP (100) [EmployeeID]\n,[LastName]\n,[FirstName]\n,[BirthDate]\n,[Photo]\n,[Notes]\n FROM [Employees]",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "northwindLDB",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('workspaceName'), '/Serverless csv External Table')]",
 			"type": "Microsoft.Synapse/workspaces/sqlscripts",
 			"apiVersion": "2019-06-01-preview",
@@ -346,7 +366,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -414,7 +434,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "CategoryID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -446,7 +466,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -566,7 +586,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "CustomerID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -598,7 +618,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -705,7 +725,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "EmployeeID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -737,7 +757,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -815,7 +835,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "OrderDetailID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -847,7 +867,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -938,7 +958,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "OrderID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -970,7 +990,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -1074,7 +1094,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "ProductID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -1106,7 +1126,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -1174,7 +1194,7 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "ShipperID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
@@ -1206,7 +1226,7 @@
 										"OriginDataTypeName": {
 											"TypeName": "long",
 											"IsComplexType": false,
-											"IsNullable": true,
+											"IsNullable": false,
 											"Properties": {
 												"HIVE_TYPE_STRING": "long"
 											}
@@ -1339,12 +1359,201 @@
 							"Properties": {
 								"Description": "",
 								"DisplayFolderInfo": "{\"name\":\"Others\",\"colorCode\":\"\"}",
-								"PrimaryKeys": "",
+								"PrimaryKeys": "SupplierID",
 								"spark.sql.sources.provider": "csv"
 							},
 							"Retention": 0,
 							"Temporary": false,
 							"IsRewriteEnabled": false
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-bqguhqcikt",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Orders",
+							"ToTableName": "OrderDetails",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "OrderID",
+									"ToColumnName": "OrderID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-gidfgziejd",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Suppliers",
+							"ToTableName": "Products",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "SupplierID",
+									"ToColumnName": "SupplierID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-qxwuutnsaq",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Customers",
+							"ToTableName": "Orders",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "CustomerID",
+									"ToColumnName": "CustomerID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-rqpnlemisg",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Categories",
+							"ToTableName": "Products",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "CategoryID",
+									"ToColumnName": "CategoryID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-ruvhqbwloy",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Employees",
+							"ToTableName": "Orders",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "EmployeeID",
+									"ToColumnName": "EmployeeID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-tgaomejdvr",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Shippers",
+							"ToTableName": "Orders",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "ShipperID",
+									"ToColumnName": "ShipperID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
+						},
+						"Source": {
+							"Type": "SPARK"
+						}
+					},
+					{
+						"ActionType": "CREATE",
+						"OldEntity": null,
+						"NewEntity": {
+							"Name": "relationship-ycyfodphfh",
+							"EntityType": "RELATIONSHIP",
+							"Namespace": {
+								"DatabaseName": "northwindLDB"
+							},
+							"Origin": {
+								"Type": "SPARK"
+							},
+							"FromTableName": "Products",
+							"ToTableName": "OrderDetails",
+							"ColumnRelationshipInformations": [
+								{
+									"FromColumnName": "ProductID",
+									"ToColumnName": "ProductID"
+								}
+							],
+							"RelationshipType": 0,
+							"Properties": {}
 						},
 						"Source": {
 							"Type": "SPARK"
